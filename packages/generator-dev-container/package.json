@@ -1,0 +1,22 @@
+{
+  "name": "@sunaba-extension/generator-dev-container",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generators/app/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "build-generator"
+  },
+  "type": "commonjs",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/yeoman-generator": "^5.2.10",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@sunaba-extension/build-generator": "workspace:^1.0.0",
+    "yeoman-generator": "^5.7.0"
+  }
+}

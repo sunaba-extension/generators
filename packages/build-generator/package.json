@@ -1,0 +1,22 @@
+{
+  "name": "@sunaba-extension/build-generator",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A script for building Yeoman generators",
+  "main": "index.js",
+  "bin": "./cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.14.53",
+    "esbuild-copy-static-files": "^0.1.0",
+    "glob": "^8.0.3",
+    "pino": "^8.4.0",
+    "pino-pretty": "^8.1.0",
+    "yargs": "^17.5.1"
+  }
+}
