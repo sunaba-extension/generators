@@ -49,6 +49,9 @@ jobs:
         with:
           node-version: 16
           cache: "pnpm"
+          registry-url: "https://registry.npmjs.org"
+          scope: "@sunaba-extension"
+          always-auth: true
 
       - name: Install
         run: pnpm install --frozen-lockfile
