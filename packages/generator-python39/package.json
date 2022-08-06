@@ -1,12 +1,16 @@
 {
   "name": "@sunaba-extension/generator-python39",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "",
-  "main": "index.js",
+  "main": "generators/app/index.js",
+  "typings": "./generators/app/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Warn: no test specified\" && exit 0",
     "build": "build-generator"
   },
+  "files": [
+    "./generators/*"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
