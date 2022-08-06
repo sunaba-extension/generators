@@ -8,9 +8,9 @@
     "test": "echo \"Warn: no test specified\" && exit 0",
     "build": "build-generator"
   },
-  "files": [
-    "./generators/*"
-  ],
+  "directories": {
+    "generator": "generator"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

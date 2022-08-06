@@ -8,13 +8,13 @@
     "test": "echo \"Warn: no test specified\" && exit 0",
     "build": "build-generator"
   },
-  "files": [
-    "./generators/*"
-  ],
+  "directories": {
+    "generators": "generators"
+  },
   "type": "commonjs",
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/yeoman-generator": "^5.2.10",
     "typescript": "^4.7.4"
