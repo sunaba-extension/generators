@@ -1,6 +1,6 @@
 {
   "name": "@sunaba-extension/generator-dev-container",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "",
   "main": "generators/app/index.js",
   "typings": "./generators/app/index.d.ts",
