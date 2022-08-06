@@ -10,13 +10,13 @@ const packages = await fs.readdir(path.join(base, "./packages/"), {
 });
 
 for (const pkg of packages) {
-  const pkgDir = path.join(base, "packages", pkg.name, "package.json");
+  const pkgDir = path.join(base, "packages", pkg.name);
   // skip if it is not a directory
   if (!pkg.isDirectory()) {
     continue;
   }
   // skip if it is not a package
-  if (!(await exists(path.join(pkgDir)))) {
+  if (!(await exists(path.join(pkgDir, "package.json")))) {
     continue;
   }
   // skip if can-npm-publish fails

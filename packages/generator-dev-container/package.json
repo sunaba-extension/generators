@@ -1,6 +1,6 @@
 {
   "name": "@sunaba-extension/generator-dev-container",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "",
   "main": "generators/app/index.js",
   "typings": "./generators/app/index.d.ts",
@@ -16,11 +16,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@sunaba-extension/build-generator": "workspace:^1.0.0",
     "@types/yeoman-generator": "^5.2.10",
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "@sunaba-extension/build-generator": "workspace:^1.0.0",
     "yeoman-generator": "^5.7.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@sunaba-extension/generator-python39",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "",
   "main": "generators/app/index.js",
   "typings": "./generators/app/index.d.ts",
@@ -20,7 +20,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "@sunaba-extension/generator-dev-container": "workspace:^1.0.0",
+    "@sunaba-extension/generator-dev-container": "workspace:^1.0.0-alpha",
     "yeoman-generator": "^5.7.0"
   }
 }
