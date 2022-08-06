@@ -1,4 +1,4 @@
-const { build } = require("esbuild");
+const { build } = require("tsup");
 const copyStaticFiles = require("esbuild-copy-static-files");
 const pino = require("pino");
 const path = require("path");
@@ -17,11 +17,9 @@ const logger = pino({
 
 let nodeModules = {};
 
-module.exports = async function buildGenerator(
-  baseDir,
-  pathsToCopy = ["app/templates"],
-  watch = false
-) {
+module.exports = async function buildGenerator(baseDir, watch = false) {
+  const pathsToCopy = ["app/templates"];
+
   // create a list of locally installed modules
   if (!(baseDir in nodeModules)) {
     const allMods = await fs.readdir(path.resolve(baseDir, "node_modules"));
@@ -34,19 +32,19 @@ module.exports = async function buildGenerator(
   }
 
   // entry points
-  const entryPoints = [path.resolve(baseDir, "src/app/index.ts")];
+  const entry = [path.resolve(baseDir, "src/app/index.ts")];
 
   return build({
-    entryPoints,
-    watch: watch && { onRebuild },
-    outbase: "./src",
-    outdir: "./generators",
+    entry,
+    watch,
+    outDir: "./generators/app",
     platform: "node",
     target: "node14",
     bundle: true,
     format: "cjs",
     external: Object.keys(nodeModules[baseDir]),
-    plugins: [
+    dts: true,
+    esbuildPlugins: [
       ...pathsToCopy.map((p) =>
         copyStaticFiles({
           src: path.resolve(baseDir, "src", p),
@@ -55,19 +53,5 @@ module.exports = async function buildGenerator(
         })
       ),
     ],
-  }).then((result) => {
-    if (watch) {
-      logger.info("Watching...");
-    } else {
-      logger.info(`Successfully built the generator at ${baseDir}`);
-    }
   });
 };
-
-function onRebuild(error, result) {
-  if (error) {
-    logger.error("watch build failed:", error);
-  } else {
-    logger.info("watch build succeeded");
-  }
-}

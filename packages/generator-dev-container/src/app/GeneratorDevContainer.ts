@@ -1,11 +1,6 @@
 import Generator from "yeoman-generator";
 
-export type GeneratorDevContainerOpts = {
-  /**
-   * Override the devcontainer.json properties
-   */
-  override: any;
-};
+const NAME = 0;
 
 export class GeneratorDevContainer extends Generator {
   private _args: any;
@@ -18,9 +13,10 @@ export class GeneratorDevContainer extends Generator {
     this._opts = opts;
   }
   public writing() {
+    this.log("Writing files for dev container");
     this.fs.copyTpl(
       this.templatePath("**/*"),
-      this.destinationRoot(this._args.name),
+      this.destinationPath(this._args[NAME]),
       undefined,
       undefined,
       { globOptions: { dot: true } }

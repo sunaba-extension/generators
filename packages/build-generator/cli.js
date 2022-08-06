@@ -17,10 +17,6 @@ const argv = yargs(hideBin(process.argv))
     description: "Watch files and rebuild on updates",
     default: false,
   })
-  .option("copy", {
-    type: "array",
-    description: "Directories that include non-TS files to copy",
-  })
   .parse();
 
-buildGenerator(argv.root, argv.copy, argv.watch);
+buildGenerator(argv.root, argv.watch);

@@ -1,3 +1,3 @@
 import { GeneratorDevContainer } from "./GeneratorDevContainer";
 
-module.exports = GeneratorDevContainer;
+export default GeneratorDevContainer;
