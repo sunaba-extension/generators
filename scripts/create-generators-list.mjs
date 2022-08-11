@@ -41,6 +41,10 @@ for (const pkg of packages) {
   );
 }
 
+try {
+  await fs.mkdir(path.join(base, "dist"));
+} catch {}
+
 await fs.writeJSON(
   path.join(base, "dist", "generators.json"),
   { generators },
