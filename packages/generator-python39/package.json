@@ -1,7 +1,7 @@
 {
   "name": "@sunaba-extension/generator-python39",
   "version": "1.0.0-alpha.2",
-  "description": "",
+  "description": "Sunaba Template: Python 3.9",
   "main": "generators/app/index.js",
   "typings": "./generators/app/index.d.ts",
   "scripts": {

@@ -5,6 +5,11 @@ on:
   pull_request:
     types: [opened, synchronize]
   workflow_dispatch:
+
+concurrency:
+  group: "deploy"
+  cancel-in-progress: true
+
 jobs:
   build-and-test:
     name: Build and Test
@@ -32,7 +37,12 @@ jobs:
       - name: Test
         run: pnpm test
 
+      # make sure the list generator is working
+      - name: Create generators list
+        run: pnpm zx ./scripts/create-generators-list.mjs
+
   deploy:
+    if: ${{ github.ref == 'refs/heads/main' }}
     name: Publish Packages
     runs-on: ubuntu-latest
     needs: [build-and-test]
@@ -63,3 +73,18 @@ jobs:
         run: pnpm zx ./scripts/publish-packages.mjs
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+
+      - name: Update generators list
+        run: pnpm zx ./scripts/create-generators-list.mjs
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v1
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: "./dist"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@main
