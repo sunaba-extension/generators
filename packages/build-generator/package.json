@@ -1,6 +1,6 @@
 {
   "name": "@sunaba-extension/build-generator",
-  "private": true,
+  "private": false,
   "version": "1.0.0",
   "description": "A script for building Yeoman generators",
   "main": "index.js",
