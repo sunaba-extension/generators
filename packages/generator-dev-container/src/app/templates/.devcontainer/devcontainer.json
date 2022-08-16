@@ -7,7 +7,7 @@
   ],
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
   "workspaceFolder": "/workspace",
-  "postStartCommand": "cd /workspace && nix develop -c /bin/bash -c \"echo 'Pre-loading complete!'\"",
+  "onCreateCommand": "cd /workspace && nix develop -c /bin/bash -c \"echo 'Pre-loading complete!'\"",
   "remoteUser": "vscode",
   "settings": {
     "terminal.integrated.defaultProfile.linux": "zsh",

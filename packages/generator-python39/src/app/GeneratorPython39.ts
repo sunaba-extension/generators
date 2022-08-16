@@ -31,17 +31,17 @@ class GeneratorPython39Internal extends Generator {
       path.resolve(this._args[NAME], ".devcontainer/devcontainer.json")
     );
 
-    const postStartCommand: string = (
-      this.fs.readJSON(devcontainerPath) as any
-    )["postStartCommand"];
-    const postStartCommandArr = postStartCommand.split("&&");
-    postStartCommandArr.splice(
-      postStartCommandArr.length - 1,
+    const onCreateCommand: string = (this.fs.readJSON(devcontainerPath) as any)[
+      "onCreateCommand"
+    ];
+    const onCreateCommandArr = onCreateCommand.split("&&");
+    onCreateCommandArr.splice(
+      onCreateCommandArr.length - 1,
       0,
       " nix develop -c poetry install "
     );
     this.fs.extendJSON(devcontainerPath, {
-      postStartCommand: postStartCommandArr.join("&&"),
+      onCreateCommand: onCreateCommandArr.join("&&"),
       containerEnv: {
         POETRY_VIRTUALENVS_IN_PROJECT: "1",
       },
