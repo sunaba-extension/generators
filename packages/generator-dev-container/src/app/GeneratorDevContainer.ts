@@ -14,9 +14,17 @@ export class GeneratorDevContainer extends Generator {
 
   public constructor(args: any, opts: GenerateDevContainerOpts) {
     super(args, opts);
-    this.argument("name", { type: String, required: true });
     this._args = args;
     this._opts = opts;
+    this.argument("name", { type: String, required: true });
+    this.option("container-env", {
+      type: String,
+      description: "Additional environment variables encoded as JSON object",
+    });
+    this.option("on-create-command", {
+      type: String,
+      description: "Additional command to execute on container creation",
+    });
   }
   public writing() {
     this.log("Writing files for dev container");
@@ -33,24 +41,25 @@ export class GeneratorDevContainer extends Generator {
     );
 
     // add optional commands to `onCreateCommand`
-    if (this._opts.onCreateCommand) {
+    if (this.options["on-create-command"]) {
       const onCreateCommand: string = (
         this.fs.readJSON(devcontainerPath) as any
       )["onCreateCommand"];
       const onCreateCommandArr = onCreateCommand.split(" && ");
-      let additionalCommands: string[];
-      if (Array.isArray(this._opts.onCreateCommand)) {
-        additionalCommands = this._opts.onCreateCommand;
-      } else {
-        additionalCommands = [this._opts.onCreateCommand];
-      }
       onCreateCommandArr.splice(
         onCreateCommandArr.length - 1,
         0,
-        ...additionalCommands
+        this.options["on-create-command"]
       );
       this.fs.extendJSON(devcontainerPath, {
         onCreateCommand: onCreateCommandArr.join(" && "),
+      });
+    }
+
+    // add additional environment variables
+    if (this.options["container-env"]) {
+      this.fs.extendJSON(devcontainerPath, {
+        containerEnv: JSON.parse(this.options["container-env"]),
       });
     }
   }

@@ -1,5 +1,3 @@
-import path from "path";
-
 import Generator from "yeoman-generator";
 
 import GeneratorDevContainer from "@sunaba-extension/generator-dev-container";
@@ -26,26 +24,6 @@ class GeneratorPython39Internal extends Generator {
       undefined,
       { globOptions: { dot: true } }
     );
-
-    const devcontainerPath = this.destinationPath(
-      path.resolve(this._args[NAME], ".devcontainer/devcontainer.json")
-    );
-
-    const onCreateCommand: string = (this.fs.readJSON(devcontainerPath) as any)[
-      "onCreateCommand"
-    ];
-    const onCreateCommandArr = onCreateCommand.split("&&");
-    onCreateCommandArr.splice(
-      onCreateCommandArr.length - 1,
-      0,
-      " nix develop -c poetry install "
-    );
-    this.fs.extendJSON(devcontainerPath, {
-      onCreateCommand: onCreateCommandArr.join("&&"),
-      containerEnv: {
-        POETRY_VIRTUALENVS_IN_PROJECT: "1",
-      },
-    });
   }
 }
 
@@ -65,7 +43,11 @@ export class GeneratorPython39 extends Generator {
         Generator: GeneratorDevContainer,
         path: require.resolve("@sunaba-extension/generator-dev-container"),
       },
-      { args: this._args }
+      {
+        args: this._args,
+        "on-create-command": "nix develop -c poetry install",
+        "container-env": JSON.stringify({ POETRY_VIRTUALENVS_IN_PROJECT: "1" }),
+      }
     );
     this.composeWith(
       {

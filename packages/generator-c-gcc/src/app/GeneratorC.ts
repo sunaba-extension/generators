@@ -1,5 +1,3 @@
-import path from "path";
-
 import Generator from "yeoman-generator";
 
 import GeneratorDevContainer from "@sunaba-extension/generator-dev-container";
@@ -26,23 +24,6 @@ class GeneratorCInternal extends Generator {
       undefined,
       { globOptions: { dot: true } }
     );
-
-    const devcontainerPath = this.destinationPath(
-      path.resolve(this._args[NAME], ".devcontainer/devcontainer.json")
-    );
-
-    const onCreateCommand: string = (this.fs.readJSON(devcontainerPath) as any)[
-      "onCreateCommand"
-    ];
-    const onCreateCommandArr = onCreateCommand.split("&&");
-    onCreateCommandArr.splice(
-      onCreateCommandArr.length - 1,
-      0,
-      " nix develop -c /bin/bash ./.sunaba/scripts/link.sh "
-    );
-    this.fs.extendJSON(devcontainerPath, {
-      onCreateCommand: onCreateCommandArr.join("&&"),
-    });
   }
 }
 
@@ -64,9 +45,8 @@ export class GeneratorC extends Generator {
       },
       {
         args: this._args,
-        opts: {
-          onCreateCommand: "nix develop -c /bin/bash ./.sunaba/scripts/link.sh",
-        },
+        "on-create-command":
+          "nix develop -c /bin/bash ./.sunaba/scripts/link.sh",
       }
     );
     this.composeWith(
